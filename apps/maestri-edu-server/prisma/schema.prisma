@@ -1,0 +1,112 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model DadosEscolares {
+  createdAt        DateTime @default(now())
+  id               String   @id @default(cuid())
+  perfilReferencia String?
+  updatedAt        DateTime @updatedAt
+}
+
+model Perfil {
+  cpf           String?
+  createdAt     DateTime @default(now())
+  id            String   @id @default(cuid())
+  numeroCelular String?
+  updatedAt     DateTime @updatedAt
+}
+
+model Endereco {
+  createdAt        DateTime @default(now())
+  id               String   @id @default(cuid())
+  perfilReferencia String?
+  updatedAt        DateTime @updatedAt
+}
+
+model Contrato {
+  createdAt        DateTime @default(now())
+  id               String   @id @default(cuid())
+  perfilReferencia String?
+  updatedAt        DateTime @updatedAt
+}
+
+model Documento {
+  createdAt        DateTime @default(now())
+  id               String   @id @default(cuid())
+  perfilReferencia String?
+  updatedAt        DateTime @updatedAt
+}
+
+model Curso {
+  createdAt  DateTime    @default(now())
+  id         String      @id @default(cuid())
+  matriculas Matricula[]
+  updatedAt  DateTime    @updatedAt
+}
+
+model Classificacao {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model Banking {
+  createdAt  DateTime @default(now())
+  descricaoi String?
+  id         String   @id @default(cuid())
+  idConvenio String?  @unique
+  movimentaO Decimal?
+  status     Boolean
+  updatedAt  DateTime @updatedAt
+}
+
+model Matricula {
+  aluno                       String?
+  alunoId                     String?
+  alunoReferencia             String?
+  classificacaoReferencia     String?
+  createdAt                   DateTime                      @default(now())
+  curso                       Curso?                        @relation(fields: [cursoId], references: [id])
+  cursoId                     String?
+  cursoReferencia             String?
+  id                          String                        @id @default(cuid())
+  numeroParcelas              Int?
+  parcelaAdimplente           String?
+  parcelaAdimplenteId         String?
+  parcelaAdimplenteReferencia String?
+  promotor                    String?
+  promotorId                  String?
+  promotorReferencia          String?
+  status                      EnumMatriculaStatus?
+  statusMatricula             EnumMatriculaStatusMatricula?
+  taxaMatricula               String?
+  taxaMatriculaId             String?
+  taxaMatriculaReferencia     String?
+  updatedAt                   DateTime                      @updatedAt
+}
+
+model Parcela {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model Cobranca {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+enum EnumMatriculaStatus {
+  Option1
+}
+
+enum EnumMatriculaStatusMatricula {
+  Option1
+}
